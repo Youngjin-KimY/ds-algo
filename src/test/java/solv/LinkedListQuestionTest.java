@@ -50,7 +50,6 @@ class LinkedListQuestionTest {
         sol[2] = 3;
 
         Assertions.assertArrayEquals(actualArr, sol);
-
     }
 
     public int[] nodeToArr(ListNode node) {
@@ -65,4 +64,45 @@ class LinkedListQuestionTest {
         return res;
     }
 
+    @Test
+    public void circularNodeFinderTest1() {
+        ListNode n = new ListNode(1);
+        ListNode circularStartNode = linkedListQuestion.findCircularStartNode(n);
+
+        Assertions.assertNull(circularStartNode);
+    }
+
+    @Test
+    public void circularNodeFinderTest2() {
+        ListNode n = new ListNode(1, new ListNode(2));
+        ListNode circularStartNode = linkedListQuestion.findCircularStartNode(n);
+
+        Assertions.assertNull(circularStartNode);
+    }
+
+    @Test
+    public void circularNodeFinderTest3() {
+        ListNode n = new ListNode(1, new ListNode(2, new ListNode(3)));
+        ListNode circularStartNode = linkedListQuestion.findCircularStartNode(n);
+
+        Assertions.assertNull(circularStartNode);
+    }
+
+    @Test
+    public void circularNodeFinderTest4() {
+        ListNode h = new ListNode(1);
+        ListNode sc = new ListNode(2);
+        ListNode n = new ListNode(3);
+        ListNode n2 = new ListNode(4);
+        ListNode n3 = new ListNode(5);
+        h.next = sc;
+        sc.next = n;
+        n.next = n2;
+        n2.next = n3;
+        n3.next = sc;
+
+        ListNode circularStartNode = linkedListQuestion.findCircularStartNode(n);
+
+        Assertions.assertEquals(sc.val, circularStartNode.val);
+    }
 }

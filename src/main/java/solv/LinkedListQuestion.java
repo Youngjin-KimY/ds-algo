@@ -2,6 +2,7 @@ package solv;
 
 import com.rooon.datastructure.ListNode;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class LinkedListQuestion {
@@ -48,5 +49,27 @@ public class LinkedListQuestion {
         }
 
         return head;
+    }
+
+    public ListNode findCircularStartNode(ListNode head) {
+        HashMap<Integer, Integer> incomingEdgeSaver = new HashMap<>();
+        ListNode res;
+        ListNode cur = head;
+
+        if(head == null || head.next == null) return null;
+
+        incomingEdgeSaver.put(cur.val, 1);
+
+        while(true) {
+            if(cur == null || cur.next == null) return null;
+
+            if(incomingEdgeSaver.containsKey(cur.next.val)) {
+                return cur;
+            }
+
+            incomingEdgeSaver.put(cur.val, 1);
+            cur = cur.next;
+        }
+
     }
 }
